@@ -1,0 +1,23 @@
+<div class="container">
+  <h2>Image Upload</h2>
+  <form (ngSubmit)="onSubmit()" #imageForm="ngForm">
+    <div class="form-group">
+      <label for="fileInput" class="sr-only">Select Image:</label>
+      <input
+        type="file"
+        id="fileInput"
+        (change)="onFileChange($event)"
+        accept="image/*"
+        style="display: none;"
+      />
+      <button type="button" class="btn btn-primary selectFile" (click)="openFileInput()">Choose File</button>
+    </div>
+    <div *ngIf="previewUrl">
+      <h3>Preview:</h3>
+      <img [src]="previewUrl" alt="Image Preview" width="200" />
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!selectedFile">
+      Upload
+    </button>
+  </form>
+</div>

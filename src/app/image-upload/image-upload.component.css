@@ -1,0 +1,52 @@
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f9f9f9;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+img {
+  margin-top: 10px;
+}
+button {
+  width: 200px;
+  padding: 10px;
+  margin: 8px;
+  outline: none;
+  font-size: 16px;
+  background: #0546ff;
+  color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid;
+  cursor: pointer;
+}
+button.selectFile {
+  background: #8001c6;
+}
+.imagecards {
+  display: flex;
+}
+.imageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: start;
+}
+.imagecards span {
+  width: 24px;
+  height: 24px;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 2px;
+  margin: 0 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
