@@ -1,3 +1,5 @@
+
+//For multiple-image image-upload.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,8 +12,8 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./image-upload.component.css']
 })
 export class ImageUploadComponent {
-  selectedFile: File | null = null;
-  previewUrl: string | ArrayBuffer | null = null;
+  selectedFiles: File[] = [];
+  previewUrls: (string | ArrayBuffer)[] = [];
 
   openFileInput(): void {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
@@ -23,29 +25,35 @@ export class ImageUploadComponent {
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
-      this.selectedFile = input.files[0];
+      for (let i = 0; i < input.files.length; i++) {
+        const file = input.files[i];
+        this.selectedFiles.push(file);
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.previewUrl = reader.result;
-      };
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.previewUrls.push(reader.result || '');
+        };
 
-      reader.readAsDataURL(this.selectedFile);
+        reader.readAsDataURL(file);
+      }
     }
   }
 
+  removeImage(index: number): void {
+    this.selectedFiles.splice(index, 1);
+    this.previewUrls.splice(index, 1);
+  }
+
   onSubmit(): void {
-    if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('image', this.selectedFile);
+    // Handle the upload logic for selected files
+    
+    if (this.selectedFiles.length > 0) {
+      console.log('Uploading files:', this.selectedFiles);
+      // Clear selected files and previews after upload
 
-      // Here you can send the formData to your backend service
-      // Example:
-      // this.http.post('your-api-endpoint', formData).subscribe(response => {
-      //   console.log(response);
-      // });
+      this.selectedFiles = [];
+      this.previewUrls = [];
 
-      console.log('Image uploaded successfully!');
     }
   }
 }

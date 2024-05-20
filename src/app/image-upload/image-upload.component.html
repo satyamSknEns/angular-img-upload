@@ -1,23 +1,30 @@
+
 <div class="container">
-  <h2>Image Upload</h2>
-  <form (ngSubmit)="onSubmit()" #imageForm="ngForm">
-    <div class="form-group">
-      <label for="fileInput" class="sr-only">Select Image:</label>
-      <input
-        type="file"
-        id="fileInput"
-        (change)="onFileChange($event)"
-        accept="image/*"
-        style="display: none;"
-      />
-      <button type="button" class="btn btn-primary selectFile" (click)="openFileInput()">Choose File</button>
-    </div>
-    <div *ngIf="previewUrl">
-      <h3>Preview:</h3>
-      <img [src]="previewUrl" alt="Image Preview" width="200" />
-    </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!selectedFile">
-      Upload
-    </button>
-  </form>
-</div>
+    <h2>Image Upload</h2>
+    <form (ngSubmit)="onSubmit()" #imageForm="ngForm">
+      <div class="form-group">
+        <label for="fileInput" class="sr-only">Select Images:</label>
+        <input
+          type="file"
+          id="fileInput"
+          (change)="onFileChange($event)"
+          accept="image/*"
+          style="display: none;"
+          multiple
+        />
+        
+        <button type="button" class="btn btn-primary selectFile" (click)="openFileInput()">Choose Files</button>
+      </div>
+      <h3 *ngIf="previewUrls && previewUrls.length > 0">Preview:</h3>
+      <div *ngIf="previewUrls && previewUrls.length > 0" class="imageContainer">
+        <div *ngFor="let previewUrl of previewUrls; let i = index" class="imagecards">
+          <img [src]="previewUrl" alt="Image Preview" width="200" />
+          <span type="button" class="btn btn-danger" (click)="removeImage(i)">x</span>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!selectedFiles || selectedFiles.length === 0">
+        Upload
+      </button>
+    </form>
+  </div>
+  
